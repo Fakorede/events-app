@@ -1,13 +1,22 @@
 <template>
-  <!-- <div v-if="loading" class="">
-    <button type="button" class="bg-rose-600 ..." disabled>
-      <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-       
-      </svg>
-      <span class="text-white">Loading</span>
-    </button>
-  </div> -->
-  <div class="min-h-screen bg-background sm:px-10 sm:py-10 lg:py-[87px] lg:px-[176px]">
+  <div v-if="loading" class="flex items-center justify-center w-full min-h-screen mx-auto bg-background">
+    <div class="w-full max-w-sm p-4 mx-auto border border-purple-400 rounded-md shadow">
+      <div class="flex space-x-4 animate-pulse">
+        <div class="w-12 h-12 rounded-full bg-primary"></div>
+        <div class="flex-1 py-1 space-y-4">
+          <div class="w-3/4 h-4 rounded bg-primary"></div>
+          <div class="space-y-2">
+            <div class="h-4 rounded bg-primary"></div>
+            <div class="w-5/6 h-4 rounded bg-primary"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div 
+    v-else
+    class="min-h-screen bg-background xs:px-2 xs:py-5 sm:px-5 sm:py-5 lg:py-[87px] lg:px-[176px]"
+  >
     <div class="flex flex-row justify-between">
       <span class="text-[28px] font-bold text-dark-1 leading-[22px] tracking-tight">Events</span>
       <div class="flex items-center space-x-3">
@@ -30,98 +39,32 @@
     </div>
     <div class="mt-10 text-base font-semibold">
       <h2 class="leading-5 tracking-tight text-dark-1">Featured Events</h2>
-      <div class="grid grid-cols-1 gap-4 mt-5 lg:grid-cols-2">
-        <div class="p-4 bg-white rounded-md">
-          <img class="w-[492px] h-[188px] mb-4" src="../assets/svg/event-banner-1.svg" alt="event banner">
-          <span class="text-sm text-dark-1 leading-[18px] font-bold">Wizkid in Warri</span>
-          <div class="flex mt-4 space-x-5">
-            <div class="flex items-center justify-between space-x-3">
-              <img class="w-[14px] h-[14px]" src="../assets/svg/location-icon.svg" alt="location icon">
-              <span class="text-gray-2 text-sm font-normal leading-[18px]">Lagos</span>
-            </div>
-            <div class="flex items-center justify-between space-x-3">
-              <img class="w-[14px] h-[14px]" src="../assets/svg/calendar-icon.svg" alt="calendar icon">
-              <span class="text-gray-2 text-sm font-normal leading-[18px]">8th December, 2021</span>
-            </div>
-          </div>
-          <div class="flex items-center mt-4 space-x-3">
-            <img class="w-[14px] h-[14px]" src="../assets/svg/ticket-icon.svg" alt="ticket icon">
-            <span class="text-gray-2 text-sm font-normal leading-[18px]">
-              Starting from 
-              <!-- <img class="w-4 h-3" src="../assets/svg/naira-icon.svg" alt="naira icon"> -->
-              <span class="text-base font-semibold leading-5 text-primary">&#8358;15,000</span>
-            </span>
-          </div>
-        </div>
-        <div class="p-4 bg-white rounded-md">
-          <img class="w-[492px] h-[188px] mb-4" src="../assets/svg/event-banner-2.svg" alt="event banner">
-          <span class="text-sm text-dark-1 leading-[18px] font-bold">Wizkid in Warri</span>
-          <div class="flex mt-4 space-x-5">
-            <div class="flex items-center justify-between space-x-3">
-              <img class="w-[14px] h-[14px]" src="../assets/svg/location-icon.svg" alt="location icon">
-              <span class="text-gray-2 text-sm font-normal leading-[18px]">Lagos</span>
-            </div>
-            <div class="flex items-center justify-between space-x-3">
-              <img class="w-[14px] h-[14px]" src="../assets/svg/calendar-icon.svg" alt="calendar icon">
-              <span class="text-gray-2 text-sm font-normal leading-[18px]">8th December, 2021</span>
-            </div>
-          </div>
-          <div class="flex items-center mt-4 space-x-3">
-            <img class="w-[14px] h-[14px]" src="../assets/svg/ticket-icon.svg" alt="ticket icon">
-            <span class="text-gray-2 text-sm font-normal leading-[18px]">
-              Starting from 
-              <!-- <img class="w-4 h-3" src="../assets/svg/naira-icon.svg" alt="naira icon"> -->
-              <span class="text-base font-semibold leading-5 text-primary">&#8358;15,000</span>
-            </span>
-          </div>
-        </div>
+      <div class="grid grid-cols-1 gap-4 mt-5 md:grid-cols-2">
+        <featured-event
+          class="relative p-4 bg-white rounded-md"
+          v-for="event in featuredEvents"
+          :key="`featured-event-${event.id}`"  
+          :event="event"
+        />
       </div>
     </div>
     <div class="mt-10 text-base font-semibold">
       <h2 class="leading-5 tracking-tight text-dark-1">All Events</h2>
-      <div class="grid grid-cols-1 gap-4 mt-5 lg:grid-cols-4">
-        <div 
-          class="p-4 bg-white rounded-md" 
+      <div class="grid grid-cols-1 gap-4 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <event-item 
+          class="p-4 bg-white rounded-md"
           v-for="event in filteredEvents" 
-          :key="event.id"
-        >
-          <img class="w-[226px] h-[142px]" src="../assets/svg/event-banner-3.svg" alt="event banner">
-          <div class="relative flex items-center justify-between">
-            <div class="text-xs text-dark-1 leading-[15px] font-bold">{{event.title}}</div>
-            <img class="w-[50px] h-[30px]" src="../assets/svg/date-bg.svg" alt="event date">
-            <span class="text-orange text-[10px] font-semibold leading-[13px] absolute right-3 top-2">31 Oct</span>
-          </div>
-          <div class="flex items-center mt-2 space-x-1">
-            <img class="w-[14px] h-[14px]" src="../assets/svg/location-icon.svg" alt="location icon">
-            <span class="text-gray-2 text-sm font-normal leading-[18px]">{{event.venue.location}}</span>
-          </div>
-          <div class="flex items-center mt-2 space-x-1">
-            <img class="w-[14px] h-[14px]" src="../assets/svg/ticket-icon.svg" alt="ticket icon">
-            <span class="text-gray-2 text-xs font-normal leading-[15px]">
-              Starting from
-              <span class="text-sm font-semibold leading-[17px] text-primary">&#8358;{{event.price}}</span>
-            </span>
-          </div>
-          <div class="mt-4">
-            <a 
-              target="_blank"
-              :href="event.url"
-              role="button" 
-              aria-label="Buy Ticket" 
-              class="p-1 border rounded-md border-primary"
-            >
-              <span class="text-primary text-xs leading-[15px] font-semibold">Buy Ticket</span>
-            </a>
-          </div>
-        </div>
+          :key="`event-${event.id}`" 
+          :event="event" 
+        />
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import {DateTime} from 'luxon';
 import { ref, reactive, computed, onMounted } from 'vue'
 
 const url = 'https://rest.bandsintown.com/artists/john%20legend/events?app_id=0ab49580-c84f-44d4-875f-d83760ea2cfe'
@@ -143,6 +86,10 @@ export default {
         return events.filter((event) => event.title.toLowerCase().match(search.value.toLowerCase()))
       }
       return events
+    })
+
+    let featuredEvents = computed(() => {
+      return events.slice(0,2 )
     })
     
     // methods
@@ -168,17 +115,18 @@ export default {
       return Math.floor((Math.random())*(max-min+1))+min;
     }
 
+    const formatDate = (date, format) => {
+      return DateTime.fromISO(date).toFormat(format)
+    }
+
     return {
       loading,
       search,
-      events,
-      fetchEvents,
+      featuredEvents,
       filteredEvents,
+      fetchEvents,
+      formatDate,
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
