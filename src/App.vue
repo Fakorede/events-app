@@ -1,10 +1,11 @@
-<script setup>
-
-</script>
 
 <template>
-  <h1 class="bg-gray-500">Hello, there</h1>
+  <events-list />
 </template>
+
+<script setup>
+import EventsList from './components/EventsList.vue'
+</script>
 
 <style>
 
