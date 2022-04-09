@@ -35,8 +35,10 @@
         v-model="search"
         class="items-center lg:w-[423px] pl-8 h-10 ring-transparent rounded-[10px] border border-gray-1" 
         type="text" 
+        aria-label="search"
         name="filter-events" 
-        placeholder="Search"
+        placeholder="Filter Event"
+        aria-placeholder="Filter Events"
       >
       <img class="absolute inset-0 inline top-[14px] left-3" src="../assets/svg/search-icon.svg" alt="search icon">
     </div>
@@ -67,7 +69,6 @@
 
 <script>
 import axios from 'axios'
-import {DateTime} from 'luxon';
 import { ref, reactive, computed, onMounted } from 'vue'
 
 const url = 'https://rest.bandsintown.com/artists/john%20legend/events?app_id=0ab49580-c84f-44d4-875f-d83760ea2cfe'
@@ -118,17 +119,12 @@ export default {
       return Math.floor((Math.random())*(max-min+1))+min;
     }
 
-    const formatDate = (date, format) => {
-      return DateTime.fromISO(date).toFormat(format)
-    }
-
     return {
       loading,
       search,
       featuredEvents,
       filteredEvents,
       fetchEvents,
-      formatDate,
     }
   }
 }
