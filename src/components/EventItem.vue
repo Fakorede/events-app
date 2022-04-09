@@ -1,6 +1,6 @@
 <template>
-  <div class>
-    <img class="w-[226px] h-[142px]" src="../assets/svg/event-banner-3.svg" alt="event banner">
+  <div v-if="event">
+    <img class="w-full mb-4" src="../assets/svg/event-banner-3.svg" alt="event banner">
       <div class="relative flex items-center justify-between">
         <div class="text-xs text-dark-1 leading-[15px] font-bold">{{event.title}}</div>
         <img class="w-[50px] h-[30px]" src="../assets/svg/date-bg.svg" alt="event date">
@@ -17,7 +17,7 @@
           <span class="text-sm font-semibold leading-[17px] text-primary">&#8358;{{event.price}}</span>
         </span>
       </div>
-      <div class="mt-4">
+      <div class="my-4">
         <a 
           target="_blank"
           :href="event.url"

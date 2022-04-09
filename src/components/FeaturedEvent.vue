@@ -1,6 +1,6 @@
 <template>
-  <div class>
-    <img class="w-[492px] h-[188px] mb-4" src="../assets/svg/event-banner-1.svg" alt="event banner">
+  <div v-if="event">
+    <img class="mb-4" src="../assets/svg/event-banner-2.svg" alt="event banner">
     <span class="text-sm text-dark-1 leading-[18px] font-bold">{{event.title}}</span>
     <div class="flex mt-4 space-x-5">
       <div class="flex items-center justify-between space-x-3">

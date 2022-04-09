@@ -1,5 +1,8 @@
 <template>
-  <div v-if="loading" class="flex items-center justify-center w-full min-h-screen mx-auto bg-background">
+  <div 
+    v-if="loading" 
+    class="flex items-center justify-center w-full min-h-screen p-4 mx-auto bg-background"
+  >
     <div class="w-full max-w-sm p-4 mx-auto border border-purple-400 rounded-md shadow">
       <div class="flex space-x-4 animate-pulse">
         <div class="w-12 h-12 rounded-full bg-primary"></div>
@@ -41,7 +44,7 @@
       <h2 class="leading-5 tracking-tight text-dark-1">Featured Events</h2>
       <div class="grid grid-cols-1 gap-4 mt-5 md:grid-cols-2">
         <featured-event
-          class="relative p-4 bg-white rounded-md"
+          class="relative p-2 bg-white rounded-md"
           v-for="event in featuredEvents"
           :key="`featured-event-${event.id}`"  
           :event="event"
@@ -52,7 +55,7 @@
       <h2 class="leading-5 tracking-tight text-dark-1">All Events</h2>
       <div class="grid grid-cols-1 gap-4 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <event-item 
-          class="p-4 bg-white rounded-md"
+          class="p-2 bg-white rounded-md"
           v-for="event in filteredEvents" 
           :key="`event-${event.id}`" 
           :event="event" 
